@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DuckDB Dashboard
 
-## Getting Started
+A high-performance, browser-native analytical dashboard powered by **DuckDB-Wasm**. This project provides a comprehensive suite for data exploration, SQL analysis, and AI-driven insights—all running entirely in your browser.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **DuckDB-Wasm Integration**: Leverage the power of DuckDB directly in the browser for lightning-fast analytical queries on local or remote data.
+- **SQL Workbench**: A fully-featured SQL editor with syntax highlighting, query history, and real-time execution.
+- **Interactive Data Grid**: View and explore query results with a high-performance data table.
+- **Visualizer**: Create instant visualizations (Bar, Line, Pie charts) from your SQL results to identify trends and patterns.
+- **Oracle AI Chatbot**: An integrated AI assistant that helps you write SQL, debug queries, and interpret your data.
+- **Modular Dashboard Layout**: A clean, responsive grid-based interface built with Radix UI and Tailwind CSS.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
+- **Database**: [DuckDB-Wasm](https://duckdb.org/docs/api/wasm/overview)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **State Management**: React Hooks & Custom Store
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏁 Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js 18.x or later
+- npm / yarn / pnpm
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/colemaster/duckdb-dashboard.git
+   cd duckdb-dashboard
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Open in browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the dashboard in action.
+
+## 📖 Usage
+
+1. **Load Data**: Use the SQL Workbench to run `INSTALL` or `LOAD` commands, or simply query remote Parquet/CSV files.
+2. **Execute SQL**: Write your analytical queries in the editor and hit "Run".
+3. **Visualize**: Toggle the Visualizer to transform your result set into a chart.
+4. **Ask the Oracle**: Use the Chatbot in the sidebar for help with complex SQL syntax or data interpretation.
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+Built with ❤️ by [Colemaster](https://github.com/colemaster)
