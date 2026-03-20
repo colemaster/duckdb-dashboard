@@ -44,15 +44,15 @@ export function Visualizer() {
   }).slice(0, 2); // Limit to 2 plots for design reasons
 
   return (
-    <Card className="h-full w-full flex flex-col bg-obsidian border-white/10 overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-      <CardHeader className="widget-header cursor-move bg-black/60 border-b border-primary/20 p-3">
-        <CardTitle className="text-sm font-bold text-white/90 uppercase tracking-wider drop-shadow-[0_0_5px_rgba(255,126,0,0.8)] flex items-center gap-2">
-          <BarChart3 className="w-4 h-4 text-primary" /> The Refinery
+    <Card className="h-full w-full flex flex-col bg-[#0e0e0e] border-none rounded-none shadow-none">
+      <CardHeader className="widget-header cursor-move bg-[#131313] border-b-0 p-3">
+        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono">
+          <BarChart3 className="w-4 h-4 text-primary" /> Data Visualizer
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 p-4 relative pt-8">
+      <CardContent className="flex-1 p-4 relative pt-8 bg-[#000000]">
         {!chartData.length ? (
-          <div className="flex h-full items-center justify-center text-sm text-white/30">
+          <div className="flex h-full items-center justify-center text-sm text-[#adaaaa] font-mono">
             Awaiting flow metrics...
           </div>
         ) : (
@@ -60,27 +60,27 @@ export function Visualizer() {
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorOxi" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#FF7E00" stopOpacity={0.4}/>
-                  <stop offset="95%" stopColor="#FF7E00" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#00f3ff" stopOpacity={0.4}/>
+                  <stop offset="95%" stopColor="#00f3ff" stopOpacity={0}/>
                 </linearGradient>
                 <linearGradient id="colorSec" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#B87333" stopOpacity={0.4}/>
-                  <stop offset="95%" stopColor="#B87333" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#bc13fe" stopOpacity={0.4}/>
+                  <stop offset="95%" stopColor="#bc13fe" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-              <XAxis dataKey={xAxisKey} stroke="#ffffff40" fontSize={11} tickLine={false} axisLine={false} />
-              <YAxis stroke="#ffffff40" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(v) => isNaN(v) ? v : Number(v).toLocaleString()} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
+              <XAxis dataKey={xAxisKey} stroke="#adaaaa" fontSize={11} tickLine={false} axisLine={false} />
+              <YAxis stroke="#adaaaa" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(v) => isNaN(v) ? v : Number(v).toLocaleString()} />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#0A0A0A', borderColor: '#FF7E0040', color: '#fff', borderRadius: '8px' }}
-                itemStyle={{ color: '#FF7E00' }}
+                contentStyle={{ backgroundColor: '#131313', borderColor: '#262626', color: '#fff', borderRadius: '0px', fontStyle: 'monospace' }}
+                itemStyle={{ color: '#00f3ff' }}
               />
               {yAxisKeys.map((key, i) => (
                 <Area 
                   key={key}
                   type="monotone" 
                   dataKey={key} 
-                  stroke={i === 0 ? "#FF7E00" : "#B87333"} 
+                  stroke={i === 0 ? "#00f3ff" : "#bc13fe"}
                   fillOpacity={1} 
                   fill={i === 0 ? "url(#colorOxi)" : "url(#colorSec)"}
                 />
