@@ -44,7 +44,7 @@ export const useQueryStore = create<QueryState>((set) => ({
   setActiveQueryResult: (result) => set({ activeQueryResult: result }),
   activeQueryColumns: [],
   setActiveQueryColumns: (cols) => set({ activeQueryColumns: cols }),
-  currentSql: 'SELECT * FROM users_log LIMIT 10;',
+  currentSql: "SELECT\n  l_returnflag,\n  l_linestatus,\n  sum(l_quantity) as sum_qty,\n  sum(l_extendedprice) as sum_base_price,\n  count(*) as count_order\nFROM 'https://shell.duckdb.org/data/tpch/0_01/parquet/lineitem.parquet'\nGROUP BY\n  l_returnflag,\n  l_linestatus\nORDER BY\n  l_returnflag,\n  l_linestatus;",
   setCurrentSql: (sql) => set({ currentSql: sql }),
 }));
 
@@ -68,7 +68,7 @@ export const useChatStore = create<ChatState>((set) => ({
   messages: [{ 
     id: '1', 
     role: 'assistant', 
-    content: 'Oracle AI initialized. Waiting for prompt against `telemetry`, `server_logs`, or `users_log` tables.'
+    content: 'Oracle AI initialized. Waiting for prompt. Try asking me to analyze remote Parquet files or local tables.'
   }],
   addMessage: (msg) => set((state) => ({ 
     messages: [...state.messages, { ...msg, id: Date.now().toString() }] 
