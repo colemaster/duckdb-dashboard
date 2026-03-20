@@ -43,23 +43,23 @@ export function SqlWorkbench() {
   };
 
   return (
-    <Card className="h-full w-full flex flex-col bg-obsidian border-white/10 overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-      <CardHeader className="widget-header cursor-move bg-black/60 border-b border-primary/20 p-3 flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-sm font-bold text-white/90 uppercase tracking-wider drop-shadow-[0_0_5px_rgba(255,126,0,0.8)] flex items-center gap-2">
-          <DatabaseZap className="w-4 h-4 text-primary" /> The Drill
+    <Card className="h-full w-full flex flex-col bg-[#000000] border-none rounded-none shadow-none">
+      <CardHeader className="widget-header cursor-move bg-[#131313] border-b-0 p-3 flex-row items-center justify-between space-y-0">
+        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono">
+          <DatabaseZap className="w-4 h-4 text-primary" /> SQL Editor
         </CardTitle>
         <Button 
           size="sm" 
           onClick={handleRunQuery}
           disabled={isRunning}
-          className="h-7 text-xs bg-primary hover:bg-primary/80 text-white shadow-[0_0_8px_rgba(255,126,0,0.5)] cursor-pointer"
+          className="h-7 text-xs bg-primary hover:bg-primary/80 text-[#000000] rounded-none shadow-none cursor-pointer uppercase tracking-wider font-bold"
         >
-          {isRunning ? 'Extracting...' : ( <><Play className="w-3 h-3 mr-1" /> Run</> )}
+          {isRunning ? 'Extracting...' : ( <><Play className="w-3 h-3 mr-1" /> Execute</> )}
         </Button>
       </CardHeader>
       <CardContent className="flex-1 p-0 flex flex-col relative">
         <textarea 
-          className="flex-1 w-full bg-[#050505] text-[#33ff33] font-mono p-4 resize-none outline-none border-none focus:ring-0 text-sm leading-relaxed"
+          className="flex-1 w-full bg-[#0e0e0e] text-[#adaaaa] font-mono p-4 resize-none outline-none border-none focus:ring-0 text-sm leading-relaxed"
           value={currentSql}
           onChange={(e) => setCurrentSql(e.target.value)}
           spellCheck={false}

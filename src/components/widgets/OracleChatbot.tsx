@@ -55,19 +55,19 @@ export function OracleChatbot() {
   };
 
   return (
-    <Card className="h-full w-full flex flex-col bg-obsidian border-white/10 overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md">
-      <CardHeader className="widget-header cursor-move bg-black/60 border-b border-primary/20 p-3">
-        <CardTitle className="text-sm font-bold text-white/90 uppercase tracking-wider drop-shadow-[0_0_5px_rgba(255,126,0,0.8)] flex items-center justify-between">
+    <Card className="h-full w-full flex flex-col bg-[#0e0e0e] rounded-none border-none overflow-hidden shadow-none">
+      <CardHeader className="widget-header cursor-move bg-[#131313] border-b-0 p-3">
+        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center justify-between font-mono">
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${isThinking ? 'bg-primary animate-pulse shadow-[0_0_8px_#FF7E00]' : 'bg-primary/50'}`} />
-            The Oracle
+            <div className={`w-2 h-2 rounded-none ${isThinking ? 'bg-secondary animate-pulse shadow-[0_0_8px_rgba(188,19,254,0.8)]' : 'bg-secondary/50'}`} />
+            Oracle AI
           </div>
-          <Terminal className="w-4 h-4 text-primary/70" />
+          <Terminal className="w-4 h-4 text-secondary/70" />
         </CardTitle>
       </CardHeader>
 
       <CardContent className="flex-1 flex flex-col p-0 overflow-hidden relative">
-        <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={scrollRef}>
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0a0a0a]" ref={scrollRef}>
           <AnimatePresence>
             {messages.map((msg) => (
               <motion.div 
@@ -76,13 +76,13 @@ export function OracleChatbot() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex flex-col max-w-[90%] ${msg.role === 'user' ? 'ml-auto items-end' : 'mr-auto items-start'}`}
               >
-                <div className={`p-3 rounded-lg text-sm ${msg.role === 'user' ? 'bg-primary/20 text-white border border-primary/30' : 'bg-white/5 border border-white/10 text-slate-300'}`}>
+                <div className={`p-3 text-sm font-sans rounded-none border-b-2 ${msg.role === 'user' ? 'bg-[#131313] text-white border-primary' : 'bg-[#131313] border-secondary text-[#adaaaa]'}`}>
                   {msg.content}
                 </div>
                 {msg.sql && (
-                  <div className="mt-2 p-3 bg-black/80 rounded border border-primary/40 w-full font-mono text-xs text-primary/90 flex flex-col gap-1 shadow-inner">
-                    <div className="flex items-center gap-2 text-white/50 mb-1 border-b border-white/10 pb-1">
-                      <Database className="w-3 h-3" /> <span className="uppercase text-[10px]">Generated Query</span>
+                  <div className="mt-2 p-3 bg-[#000000] border-l-2 border-primary w-full font-mono text-xs text-primary flex flex-col gap-1">
+                    <div className="flex items-center gap-2 text-white/50 mb-1 border-b border-[#262626] pb-1">
+                      <Database className="w-3 h-3 text-primary" /> <span className="uppercase text-[10px]">Generated Query</span>
                     </div>
                     <span>{msg.sql}</span>
                   </div>
@@ -94,33 +94,33 @@ export function OracleChatbot() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center gap-2 text-primary text-sm p-3 bg-white/5 rounded-lg border border-primary/30 w-fit"
+                className="flex items-center gap-2 text-secondary text-sm p-3 bg-[#131313] border-b-2 border-secondary w-fit font-mono uppercase text-xs"
               >
                 <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <span className="w-1.5 h-1.5 bg-secondary animate-bounce rounded-none" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-1.5 bg-secondary animate-bounce rounded-none" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-1.5 bg-secondary animate-bounce rounded-none" style={{ animationDelay: '300ms' }} />
                 </div>
-                Processing syntax...
+                Processing...
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <div className="p-3 border-t border-white/10 bg-black/40 backdrop-blur-sm relative z-20">
+        <div className="p-3 bg-[#131313] relative z-20">
           <form onSubmit={handleSubmit} className="flex gap-2">
             <Input 
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask the Oracle..." 
-              className="bg-black/50 border-primary/30 text-white placeholder:text-white/40 focus-visible:ring-primary shadow-inner"
+              placeholder="Query the Oracle..."
+              className="bg-[#000000] border-b border-x-0 border-t-0 border-[#262626] rounded-none focus-visible:ring-0 focus-visible:border-primary text-white placeholder:text-[#adaaaa] font-sans"
               disabled={isThinking}
             />
             <Button 
                 type="submit" 
                 size="icon" 
                 disabled={!input.trim() || isThinking} 
-                className="bg-primary hover:bg-primary/80 text-white shadow-[0_0_10px_rgba(255,126,0,0.5)] transition-all"
+                className="bg-secondary hover:bg-secondary/80 text-white rounded-none border-none transition-all"
             >
               <Send className="w-4 h-4" />
             </Button>

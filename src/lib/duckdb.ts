@@ -31,6 +31,20 @@ export async function getDuckDB(): Promise<duckdb.AsyncDuckDB> {
     // Create connection and seed some data for the dashboard
     const conn = await db.connect();
     
+    // Add realistic datasets and leverage DuckDB's fast ingestion
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS users_log AS
+      SELECT * FROM (VALUES
+        (1, 'alice@quantum.io', '192.168.1.10', '2026-03-12 08:00:00', 'LOGIN_SUCCESS', 'USA'),
+        (2, 'bob@quantum.io', '192.168.1.15', '2026-03-12 08:05:00', 'LOGIN_FAILED', 'UK'),
+        (3, 'charlie@quantum.io', '192.168.1.20', '2026-03-12 08:15:00', 'DATA_EXPORT', 'JP'),
+        (4, 'diana@quantum.io', '192.168.1.25', '2026-03-12 08:30:00', 'LOGIN_SUCCESS', 'DE'),
+        (5, 'eve@quantum.io', '192.168.1.30', '2026-03-12 08:45:00', 'QUERY_RUN', 'USA'),
+        (6, 'bob@quantum.io', '192.168.1.15', '2026-03-12 09:00:00', 'LOGIN_SUCCESS', 'UK'),
+        (7, 'alice@quantum.io', '192.168.1.10', '2026-03-12 09:10:00', 'LOGOUT', 'USA')
+      ) AS t(id, user_email, ip_address, timestamp, event_type, country);
+    `);
+
     // Seed telemetry data
     await conn.query(`
       CREATE TABLE IF NOT EXISTS telemetry AS 

@@ -40,31 +40,41 @@ export function GridCanvas() {
     setLayouts(allLayouts);
   };
 
+  // Adjust layouts to match the wireframe
+  const customLayouts = {
+    lg: [
+      { i: 'workbench', x: 0, y: 0, w: 6, h: 4 },
+      { i: 'datagrid', x: 0, y: 4, w: 6, h: 6 },
+      { i: 'visualizer', x: 6, y: 0, w: 6, h: 6 },
+      { i: 'oracle', x: 6, y: 6, w: 6, h: 4 }
+    ]
+  };
+
   return (
-    <div className="w-full h-full p-4 relative z-10" ref={wrapperRef}>
+    <div className="w-full h-full p-0 relative z-10" ref={wrapperRef}>
       {width > 0 && (
         <Responsive
-          className="layout"
+          className="layout h-full"
           width={width}
-          layouts={layouts}
+          layouts={customLayouts}
           breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
           cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
           rowHeight={60}
           onLayoutChange={handleLayoutChange}
           {...({ draggableHandle: ".widget-header" } as any)}
-          margin={[16, 16]}
+          margin={[2, 2]}
         >
-          <div key="visualizer">
-            <Visualizer />
-          </div>
-          <div key="oracle">
-            <OracleChatbot />
-          </div>
-          <div key="workbench">
+          <div key="workbench" className="border border-[#262626]">
             <SqlWorkbench />
           </div>
-          <div key="datagrid">
+          <div key="datagrid" className="border border-[#262626]">
             <DataGrid />
+          </div>
+          <div key="visualizer" className="border border-[#262626]">
+            <Visualizer />
+          </div>
+          <div key="oracle" className="border border-[#262626]">
+            <OracleChatbot />
           </div>
         </Responsive>
       )}
