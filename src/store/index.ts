@@ -13,10 +13,10 @@ export const useLayoutStore = create<LayoutState>()(
     (set) => ({
       layouts: {
         lg: [
-          { i: 'visualizer', x: 0, y: 0, w: 8, h: 4 },
-          { i: 'oracle', x: 8, y: 0, w: 4, h: 10 },
-          { i: 'workbench', x: 0, y: 4, w: 8, h: 4 },
-          { i: 'datagrid', x: 0, y: 8, w: 8, h: 6 }
+          { i: 'workbench', x: 0, y: 0, w: 6, h: 4 },
+          { i: 'datagrid', x: 0, y: 4, w: 6, h: 6 },
+          { i: 'visualizer', x: 6, y: 0, w: 6, h: 6 },
+          { i: 'oracle', x: 6, y: 6, w: 6, h: 4 }
         ]
       },
       setLayouts: (layouts) => set({ layouts }),
@@ -44,7 +44,7 @@ export const useQueryStore = create<QueryState>((set) => ({
   setActiveQueryResult: (result) => set({ activeQueryResult: result }),
   activeQueryColumns: [],
   setActiveQueryColumns: (cols) => set({ activeQueryColumns: cols }),
-  currentSql: 'SELECT * FROM telemetry LIMIT 10;',
+  currentSql: 'SELECT * FROM users_log LIMIT 10;',
   setCurrentSql: (sql) => set({ currentSql: sql }),
 }));
 
@@ -68,7 +68,7 @@ export const useChatStore = create<ChatState>((set) => ({
   messages: [{ 
     id: '1', 
     role: 'assistant', 
-    content: 'Oracle AI initialized. Waiting for prompt against `telemetry` or `server_logs` tables.' 
+    content: 'Oracle AI initialized. Waiting for prompt against `telemetry`, `server_logs`, or `users_log` tables.'
   }],
   addMessage: (msg) => set((state) => ({ 
     messages: [...state.messages, { ...msg, id: Date.now().toString() }] 
