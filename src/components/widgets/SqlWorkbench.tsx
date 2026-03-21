@@ -45,21 +45,21 @@ export function SqlWorkbench() {
   return (
     <Card className="h-full w-full flex flex-col bg-[#000000] border-none rounded-none shadow-none">
       <CardHeader className="widget-header cursor-move bg-[#131313] border-b-0 p-3 flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono">
+        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-heading">
           <DatabaseZap className="w-4 h-4 text-primary" /> SQL Editor
         </CardTitle>
         <Button 
           size="sm" 
           onClick={handleRunQuery}
           disabled={isRunning}
-          className="h-7 text-xs bg-primary hover:bg-primary/80 text-[#000000] rounded-none shadow-none cursor-pointer uppercase tracking-wider font-bold"
+          className="h-7 text-xs bg-gradient-to-br from-primary to-[#00f1fd] hover:brightness-125 text-[#005f64] rounded-none shadow-none cursor-pointer uppercase tracking-wider font-bold transition-all"
         >
           {isRunning ? 'Extracting...' : ( <><Play className="w-3 h-3 mr-1" /> Execute</> )}
         </Button>
       </CardHeader>
       <CardContent className="flex-1 p-0 flex flex-col relative">
         <textarea 
-          className="flex-1 w-full bg-[#0e0e0e] text-[#adaaaa] font-mono p-4 resize-none outline-none border-none focus:ring-0 text-sm leading-relaxed"
+          className="flex-1 w-full bg-[#000000] text-[#adaaaa] font-mono p-4 resize-none outline-none border-b border-[#262626] focus:border-primary focus:shadow-[0_-1px_0_0_#00f3ff_inset] transition-all focus:ring-0 text-sm leading-relaxed"
           value={currentSql}
           onChange={(e) => setCurrentSql(e.target.value)}
           spellCheck={false}

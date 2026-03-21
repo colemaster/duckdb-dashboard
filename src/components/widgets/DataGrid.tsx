@@ -35,7 +35,7 @@ export function DataGrid() {
   return (
     <Card className="h-full w-full flex flex-col bg-[#0e0e0e] border-none rounded-none shadow-none">
       <CardHeader className="widget-header cursor-move bg-[#131313] border-b-0 p-3">
-        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-mono">
+        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-heading">
           <LucideTable className="w-4 h-4 text-primary" /> Data Results
         </CardTitle>
       </CardHeader>
@@ -60,12 +60,17 @@ export function DataGrid() {
               </thead>
               <tbody>
                 {table.getRowModel().rows.map((row, i) => (
-                  <tr key={row.id} className={`${i % 2 === 0 ? 'bg-[#000000]' : 'bg-[#0a0a0a]'} hover:border-b hover:border-primary transition-colors cursor-default`}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="p-3 text-[#ffffff] whitespace-nowrap">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    ))}
+                  <tr key={row.id} className={`${i % 2 === 0 ? 'bg-[#0e0e0e]' : 'bg-[#131313]'} border-none transition-colors cursor-default`}>
+                    {row.getVisibleCells().map((cell) => {
+                      const val = cell.getValue();
+                      // Only treat strings that are standard numbers as numeric, not empty string or pure text
+                      const isNumeric = typeof val === 'number' || typeof val === 'bigint' || (typeof val === 'string' && val.trim() !== '' && !isNaN(Number(val)));
+                      return (
+                        <td key={cell.id} className={`p-3 whitespace-nowrap border border-transparent hover:border-primary/20 hover:bg-primary/5 transition-colors ${isNumeric && val !== null ? 'text-primary' : 'text-[#adaaaa]'}`}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
                 {table.getRowModel().rows.length === 0 && (

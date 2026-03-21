@@ -8,6 +8,30 @@ import { useChatStore, useQueryStore } from '@/store';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Database, Terminal } from 'lucide-react';
 
+const TypewriterText = ({ text }: { text: string }) => {
+  return (
+    <motion.span
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: { transition: { staggerChildren: 0.015 } }
+      }}
+    >
+      {text.split("").map((char, index) => (
+        <motion.span
+          key={index}
+          variants={{
+            hidden: { opacity: 0, y: 5 },
+            visible: { opacity: 1, y: 0 }
+          }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
+
 export function OracleChatbot() {
   const { messages, addMessage, isThinking, setIsThinking } = useChatStore();
   const setCurrentSql = useQueryStore((state) => state.setCurrentSql);
@@ -57,7 +81,7 @@ export function OracleChatbot() {
   return (
     <Card className="h-full w-full flex flex-col bg-[#0e0e0e] rounded-none border-none overflow-hidden shadow-none">
       <CardHeader className="widget-header cursor-move bg-[#131313] border-b-0 p-3">
-        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center justify-between font-mono">
+        <CardTitle className="text-sm font-bold text-white uppercase tracking-wider flex items-center justify-between font-heading">
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-none ${isThinking ? 'bg-secondary animate-pulse shadow-[0_0_8px_rgba(188,19,254,0.8)]' : 'bg-secondary/50'}`} />
             Oracle AI
@@ -76,8 +100,8 @@ export function OracleChatbot() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex flex-col max-w-[90%] ${msg.role === 'user' ? 'ml-auto items-end' : 'mr-auto items-start'}`}
               >
-                <div className={`p-3 text-sm font-sans rounded-none border-b-2 ${msg.role === 'user' ? 'bg-[#131313] text-white border-primary' : 'bg-[#131313] border-secondary text-[#adaaaa]'}`}>
-                  {msg.content}
+                <div className={`p-3 text-sm font-sans rounded-none border-b-2 ${msg.role === 'user' ? 'bg-[#131313] text-white border-primary shadow-[0_2px_10px_rgba(0,243,255,0.1)]' : 'bg-[#131313] border-secondary text-[#adaaaa] shadow-[0_2px_10px_rgba(188,19,254,0.1)]'}`}>
+                  {msg.role === 'assistant' ? <TypewriterText text={msg.content} /> : msg.content}
                 </div>
                 {msg.sql && (
                   <div className="mt-2 p-3 bg-[#000000] border-l-2 border-primary w-full font-mono text-xs text-primary flex flex-col gap-1">
@@ -107,20 +131,20 @@ export function OracleChatbot() {
           </AnimatePresence>
         </div>
 
-        <div className="p-3 bg-[#131313] relative z-20">
+        <div className="p-3 bg-[#0a0a0a] border-t border-[#262626] relative z-20">
           <form onSubmit={handleSubmit} className="flex gap-2">
             <Input 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Query the Oracle..."
-              className="bg-[#000000] border-b border-x-0 border-t-0 border-[#262626] rounded-none focus-visible:ring-0 focus-visible:border-primary text-white placeholder:text-[#adaaaa] font-sans"
+              className="bg-[#000000] border-b border-x-0 border-t-0 border-[#262626] rounded-none focus-visible:ring-0 focus-visible:border-primary shadow-[0_1px_0_0_transparent] focus-visible:shadow-[0_1px_0_0_#00f3ff_inset] transition-all text-white placeholder:text-[#adaaaa] font-sans"
               disabled={isThinking}
             />
             <Button 
                 type="submit" 
                 size="icon" 
                 disabled={!input.trim() || isThinking} 
-                className="bg-secondary hover:bg-secondary/80 text-white rounded-none border-none transition-all"
+                className="bg-gradient-to-br from-primary to-[#00f1fd] hover:brightness-125 text-[#005f64] rounded-none shadow-none cursor-pointer uppercase transition-all"
             >
               <Send className="w-4 h-4" />
             </Button>

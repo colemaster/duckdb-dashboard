@@ -70,6 +70,16 @@ export async function getDuckDB(): Promise<duckdb.AsyncDuckDB> {
         ('2026-03-12 00:10:00', 'INFO', 'System healthy', 'core')
       ) AS t(timestamp, level, message, service);
     `);
+
+    // Mount the generated parquet dataset as a native view
+    try {
+      await conn.query(`
+        CREATE VIEW telemetry_large AS 
+        SELECT * FROM read_parquet('http://localhost:3000/data/telemetry_large.parquet');
+      `);
+    } catch (e) {
+      console.error('Failed to mount parquet view:', e);
+    }
     
     await conn.close();
 

@@ -44,7 +44,13 @@ export const useQueryStore = create<QueryState>((set) => ({
   setActiveQueryResult: (result) => set({ activeQueryResult: result }),
   activeQueryColumns: [],
   setActiveQueryColumns: (cols) => set({ activeQueryColumns: cols }),
-  currentSql: 'SELECT * FROM users_log LIMIT 10;',
+  currentSql: `SELECT 
+  strftime(date_trunc('day', timestamp), '%Y-%m-%d') as date, 
+  ROUND(SUM(cost), 2) as total_cost, 
+  ROUND(SUM(revenue), 2) as total_revenue
+FROM telemetry_large
+GROUP BY 1 
+ORDER BY 1;`,
   setCurrentSql: (sql) => set({ currentSql: sql }),
 }));
 
@@ -68,7 +74,7 @@ export const useChatStore = create<ChatState>((set) => ({
   messages: [{ 
     id: '1', 
     role: 'assistant', 
-    content: 'Oracle AI initialized. Waiting for prompt against `telemetry`, `server_logs`, or `users_log` tables.'
+    content: 'Oracle AI initialized. Waiting for prompt against `telemetry_large` (100k rows), `telemetry`, `server_logs`, or `users_log` tables.'
   }],
   addMessage: (msg) => set((state) => ({ 
     messages: [...state.messages, { ...msg, id: Date.now().toString() }] 

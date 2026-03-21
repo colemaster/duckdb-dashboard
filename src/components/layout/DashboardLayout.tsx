@@ -5,6 +5,7 @@ import { getDuckDB } from '@/lib/duckdb';
 import { useQueryStore } from '@/store';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HelpButton } from '@/components/widgets/HelpButton';
 
 const GridCanvas = dynamic(() => import('./GridCanvas').then(mod => mod.GridCanvas), { ssr: false });
 
@@ -47,7 +48,7 @@ export function DashboardLayout() {
           <header className="h-14 border-b border-[#262626] bg-[#000000] flex items-center justify-between px-6 z-40">
             <div className="flex items-center gap-3">
                 <div className={`w-3 h-3 rounded-none ${isReady ? 'bg-primary' : 'bg-destructive'} animate-pulse shadow-[0_0_10px_rgba(0,243,255,0.8)]`} />
-                <h1 className="font-bold text-sm text-white/90 uppercase tracking-widest font-mono">Quantum Workbench</h1>
+                <h1 className="font-bold text-sm text-white/90 uppercase tracking-widest font-heading">Quantum Workbench</h1>
             </div>
             <div className="flex items-center gap-4">
               <span className="text-xs text-[#adaaaa] font-mono">DB: local-wasm</span>
@@ -67,7 +68,7 @@ export function DashboardLayout() {
                   className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
                 >
                   <div className="w-16 h-16 border-4 border-primary/20 border-t-primary animate-spin mb-4 shadow-[0_0_15px_rgba(0,243,255,0.5)]" />
-                  <h1 className="text-xl font-bold tracking-[0.2em] text-primary uppercase shadow-primary">Initializing Quantum Core...</h1>
+                  <h1 className="text-xl font-bold tracking-[0.2em] text-primary uppercase shadow-primary font-heading">Initializing Quantum Core...</h1>
                 </motion.div>
               ) : (
                 <motion.div
@@ -84,6 +85,9 @@ export function DashboardLayout() {
           </main>
         </div>
       </div>
+      
+      {/* Global Guidance Matrix */}
+      <HelpButton />
     </div>
   );
 }
